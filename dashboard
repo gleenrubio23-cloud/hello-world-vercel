@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Poultry Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2><i class="fa-solid fa-kiwi-bird"></i> PoultryTech</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fa-solid fa-temperature-half"></i> Environment</a></li>
+                <li><a href="#"><i class="fa-solid fa-wheat-awn"></i> Feeding System</a></li>
+                <li><a href="#"><i class="fa-solid fa-droplet"></i> Water Flow</a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <div>
+                    <h1>Overview</h1>
+                    <p>Real-time monitoring from ESP32 Edge Node</p>
+                </div>
+                <div class="user-profile">
+                    <span class="status online">System Online</span>
+                </div>
+            </header>
+
+            <section class="cards-grid">
+                <div class="card">
+                    <div class="card-icon temp"><i class="fa-solid fa-temperature-high"></i></div>
+                    <div class="card-info">
+                        <h3>Coop Temperature</h3>
+                        <h2>28.5 °C</h2>
+                        <p class="status-good">Optimal Range</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon humidity"><i class="fa-solid fa-cloud-rain"></i></div>
+                    <div class="card-info">
+                        <h3>Ambient Humidity</h3>
+                        <h2>65 %</h2>
+                        <p class="status-good">Optimal Range</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon feed"><i class="fa-solid fa-scale-unbalanced"></i></div>
+                    <div class="card-info">
+                        <h3>Feed Remaining</h3>
+                        <h2>4.2 kg</h2>
+                        <p class="status-warning">Refill Soon</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon water"><i class="fa-solid fa-faucet-drip"></i></div>
+                    <div class="card-info">
+                        <h3>Daily Water Usage</h3>
+                        <h2>12.5 L</h2>
+                        <p class="status-good">Normal Flow</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bottom-grid">
+                <div class="panel controls-panel">
+                    <h2>Manual Override</h2>
+                    <div class="control-group">
+                        <div class="control-item">
+                            <span>Dispense Feed</span>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="control-item">
+                            <span>Water Valve</span>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="control-item">
+                            <span>Exhaust Fan</span>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel activity-panel">
+                    <h2>Recent System Logs</h2>
+                    <ul class="activity-list">
+                        <li><i class="fa-solid fa-check-circle"></i> Scheduled feeding completed <span>10 mins ago</span></li>
+                        <li><i class="fa-solid fa-triangle-exclamation warning"></i> Load cell detected low feed <span>1 hr ago</span></li>
+                        <li><i class="fa-solid fa-check-circle"></i> Wi-Fi reconnected successfully <span>3 hrs ago</span></li>
+                        <li><i class="fa-solid fa-check-circle"></i> Morning water flush executed <span>6 hrs ago</span></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
