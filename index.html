@@ -1,79 +1,552 @@
 <!doctype html>
-<html lang="en"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260630-05-8900874"}');</script><script src="/_sdk/e4192b04afde3ce7.telemetry_sdk.js" integrity="sha512-4eZpyKBd3YJnsIPrIpaBqo7QT5UZ6+KSFXkSu1IQiB7jKM8y67ChRhZ5Yh6JfuOJCbPdISiNcS6nLKZzIMG1uQ=="></script>
+<html lang="en"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260807-05-4dc3575","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/7949ff62d67710d5.telemetry_sdk.js" integrity="sha512-KIvXA82Di44YY/RH9/63A9MuTuavYgDFG8PfErJn7Wli4K0LAOk+coo/aPXk3+ZNL96nHh9VYD4PE+fLes+laQ=="></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
+  <title>Smart Poultry Farm Management</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        farm: { 50:'#f0fdf4', 100:'#dcfce7', 200:'#bbf7d0', 500:'#22c55e', 600:'#16a34a', 700:'#15803d', 800:'#166534' },
+                        warn: '#eab308',
+                        crit: '#ef4444'
+                    }
+                }
+            }
+        }
+    </script>
   <style>
-        body { font-family: 'DM Sans', sans-serif; }
-        .heading-font { font-family: 'Fraunces', serif; }
-        .project-card:hover img { transform: scale(1.05); }
-        .project-card img { transition: transform 0.4s ease; }
+        * { font-family: 'DM Sans', sans-serif; }
+        .nav-item.active { color: #16a34a; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .gauge-ring { stroke-dasharray: 251; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
+        .toggle-input:checked + .toggle-slider { background: #16a34a; }
+        .toggle-input:checked + .toggle-slider::before { transform: translateX(20px); }
+        .toggle-slider { width: 44px; height: 24px; background: #d1d5db; border-radius: 12px; position: relative; transition: background 0.2s; cursor: pointer; }
+        .toggle-slider::before { content:''; position: absolute; top:2px; left:2px; width:20px; height:20px; background:white; border-radius:50%; transition: transform 0.2s; }
+        @media(max-width:768px){ .desktop-sidebar{display:none!important} .mobile-nav{display:flex!important} .main-content{margin-left:0!important} }
+        @media(min-width:769px){ .mobile-nav{display:none!important} }
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
-  <script src="/_sdk/48bf7c4c70d0d03c.data_sdk.js" type="text/javascript" integrity="sha512-e/yrQJz+prdXXt4yUvxXhl1WBGu3BRkP8X0fipGXI5gqiFClI7wI6K3TQnD7d63vx+BVhwzIvY6r8OrpX7lXJA=="></script>
-  <script src="/_sdk/5d8c692e132d2125.resizing_sdk.js" type="text/javascript" integrity="sha512-/Du3Fqe12kKsCd3BrbaNQEPtMxQi9S5hbJhnTf09AAilpqYsGa4N0rnimSX1Ui4dwNElKlen6VlI+E1n/NEfrA=="></script>
+  <script src="/_sdk/0e8d3a91e1c6f495.data_sdk.js" type="text/javascript" integrity="sha512-c00oDoGjsMgluCLLEyVl3suwEkgjOGGplVFbsilUoBg4aMKNmsL3mwsc9r0dPn95qiSZyjBousQXgROkAW7p/w=="></script>
+  <script src="/_sdk/04cc6185e046f597.resizing_sdk.js" type="text/javascript" integrity="sha512-CiE/G92aQF0nxneFg1kdOvXih8sQ1Z2a2QI3+r/WvzJwQqH6+IyB3iL07OkJmpm3ABAaf07+FnqWny98f5sR6w=="></script>
  </head>
- <body data-template-id="__page-root" class="w-full min-h-screen" style="background: rgb(250, 249, 247);">
-  <header class="w-full">
-   <nav class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center"><span data-template-id="nav-logo" class="canva-text heading-font text-xl font-bold" style="color: rgb(26, 26, 26); font-weight: 700; font-style: normal; font-size: 16px;">Gleen Rubio</span> <a href="#contact" data-template-id="nav-cta" class="canva-button px-4 py-2 rounded-full text-sm font-medium no-underline" style="background: rgb(26, 26, 26); color: rgb(250, 249, 247); font-weight: 500; font-style: normal; font-size: 16px;">Get in Touch</a>
-   </nav>
-  </header>
-  <main>
-   <section class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+ <body data-template-id="__page-root" class="min-h-screen bg-gray-50" style="background: rgb(249, 250, 251);"><!-- Header -->
+  <header data-template-id="header-bg" class="canva-header w-full bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-50" style="background: rgb(255, 255, 255);">
+   <div class="flex items-center gap-3">
+    <div class="w-9 h-9 bg-farm-600 rounded-lg flex items-center justify-center">
+     <i data-lucide="egg" class="w-5 h-5 text-white"></i>
+    </div>
     <div>
-     <h1 data-template-id="hero-heading" class="canva-text heading-font text-5xl md:text-6xl leading-tight" style="color: rgb(26, 26, 26); font-weight: 700; font-style: normal; font-size: 32px;">Designer &amp; Developer</h1>
-     <p data-template-id="hero-subtitle" class="canva-text mt-4 text-lg opacity-80" style="color: rgb(61, 61, 61); font-weight: 400; font-style: normal; font-size: 16px;">I craft clean digital experiences that people love to use.</p>
+     <h1 data-template-id="farm-name" class="canva-text text-sm font-bold text-farm-800 leading-tight" style="color: rgb(22, 101, 52); font-weight: 700; font-style: normal; font-size: 14px;">Smart Poultry Feeding &amp; Drinking Management System</h1>
+     <p id="header-datetime" class="text-xs text-gray-500"></p>
     </div>
-    <div class="rounded-2xl overflow-hidden shadow-2xl"><img data-template-id="hero-image" class="canva-image w-full h-80 object-cover" loading="lazy" src="https://images.pexels.com/photos/4884116/pexels-photo-4884116.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="A sleek black laptop on a white desk in a minimalist setup with natural lighting">
+   </div>
+   <div class="flex items-center gap-3"><span id="system-status" class="text-xs font-semibold px-2 py-1 rounded-full bg-farm-100 text-farm-700">● Online</span> <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="toggle-input hidden" checked=""><span class="toggle-slider"></span><span class="text-xs text-gray-600 hidden sm:inline">Auto</span></label> <button class="relative p-2 rounded-full hover:bg-gray-100" onclick="showSection('notifications')"><i data-lucide="bell" class="w-5 h-5 text-gray-600"></i><span class="absolute top-1 right-1 w-4 h-4 bg-crit text-white text-[10px] rounded-full flex items-center justify-center">3</span></button>
+    <div class="w-8 h-8 rounded-full bg-farm-200 flex items-center justify-center">
+     <i data-lucide="user" class="w-4 h-4 text-farm-700"></i>
     </div>
-   </section>
-   <section data-template-id="about-section" class="canva-section w-full py-20" style="background: rgb(240, 237, 232);">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-     <h2 data-template-id="about-heading" class="canva-text heading-font" style="color: rgb(26, 26, 26); font-weight: 700; font-style: normal; font-size: 24px;">About Me</h2>
-     <p data-template-id="about-text" class="canva-text mt-6 text-lg leading-relaxed" style="color: rgb(61, 61, 61); font-weight: 400; font-style: normal; font-size: 16px;">I'm a multidisciplinary designer with 5+ years of experience building brands, websites, and mobile apps. I believe great design solves real problems while delighting users along the way.</p>
-    </div>
-   </section>
-   <section class="max-w-6xl mx-auto px-6 py-20">
-    <h2 data-template-id="projects-heading" class="canva-text heading-font text-center mb-12" style="color: rgb(26, 26, 26); font-weight: 700; font-style: normal; font-size: 24px;">Selected Work</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-     <div class="project-card rounded-xl overflow-hidden shadow-lg">
-      <div class="overflow-hidden"><img data-template-id="project-1-img" class="canva-image w-full h-48 object-cover" loading="lazy" src="https://images.pexels.com/photos/285814/pexels-photo-285814.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="A stylish workspace featuring a laptop and monitors displaying design software">
+   </div>
+  </header>
+  <div class="flex"><!-- Desktop Sidebar -->
+   <nav class="desktop-sidebar w-56 bg-white border-r border-gray-200 fixed top-[61px] left-0 bottom-0 overflow-y-auto p-4 flex flex-col gap-1 z-40"><button onclick="showSection('home')" class="nav-item active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="layout-dashboard" class="w-5 h-5"></i>Home</button> <button onclick="showSection('feed')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="wheat" class="w-5 h-5"></i>Feed</button> <button onclick="showSection('water')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="droplets" class="w-5 h-5"></i>Water</button> <button onclick="showSection('schedule')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="calendar" class="w-5 h-5"></i>Schedule</button> <button onclick="showSection('poultry')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="bird" class="w-5 h-5"></i>Poultry</button> <button onclick="showSection('notifications')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="bell" class="w-5 h-5"></i>Alerts</button> <button onclick="showSection('history')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="clock" class="w-5 h-5"></i>History</button> <button onclick="showSection('reports')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="bar-chart-3" class="w-5 h-5"></i>Reports</button> <button onclick="showSection('settings')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="settings" class="w-5 h-5"></i>Settings</button>
+   </nav><!-- Main Content -->
+   <main class="main-content flex-1 ml-56 p-4 md:p-6 pb-24 md:pb-6"><!-- HOME SECTION -->
+    <div id="sec-home" class="section active space-y-6 max-w-6xl mx-auto">
+     <h2 data-template-id="dashboard-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Dashboard Overview</h2><!-- Summary Cards -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+       <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+         <i data-lucide="wheat" class="w-4 h-4 text-amber-600"></i>
+        </div><span class="text-xs text-gray-500 font-medium">Feed Level</span>
+       </div>
+       <p class="text-2xl font-bold text-gray-800">68%</p>
+       <div class="w-full h-2 bg-gray-100 rounded-full mt-2">
+        <div class="h-2 bg-amber-400 rounded-full" style="width:68%"></div>
+       </div>
       </div>
-      <div data-template-id="project-1-card" class="canva-card p-5" style="background: rgb(255, 255, 255);">
-       <h3 data-template-id="project-1-title" class="canva-text font-semibold" style="color: rgb(26, 26, 26); font-weight: 600; font-style: normal; font-size: 19px;">Automatic Water and Feeding System for Poultry Management</h3>
-       <p data-template-id="project-1-desc" class="canva-text mt-2 text-sm opacity-70" style="color: rgb(85, 85, 85); font-weight: 400; font-style: normal; font-size: 16px;">A complete overhaul of an online store's user experience.</p>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+       <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+         <i data-lucide="droplets" class="w-4 h-4 text-blue-600"></i>
+        </div><span class="text-xs text-gray-500 font-medium">Water Level</span>
+       </div>
+       <p class="text-2xl font-bold text-gray-800">82%</p>
+       <div class="w-full h-2 bg-gray-100 rounded-full mt-2">
+        <div class="h-2 bg-blue-400 rounded-full" style="width:82%"></div>
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+       <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-farm-100 flex items-center justify-center">
+         <i data-lucide="bird" class="w-4 h-4 text-farm-600"></i>
+        </div><span class="text-xs text-gray-500 font-medium">Population</span>
+       </div>
+       <p class="text-2xl font-bold text-gray-800">100</p>
+       <p class="text-xs text-gray-400 mt-1">Active birds</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+       <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-lg bg-farm-100 flex items-center justify-center">
+         <i data-lucide="clock" class="w-4 h-4 text-farm-600"></i>
+        </div><span class="text-xs text-gray-500 font-medium">Next Feed</span>
+       </div>
+       <p class="text-lg font-bold text-gray-800">5:00 PM</p>
+       <p class="text-xs text-gray-400 mt-1">5 kg scheduled</p>
+      </div>
+     </div><!-- Gauge Cards -->
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-6">
+       <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="40" fill="none" stroke="#f3f4f6" stroke-width="8"></circle><circle cx="45" cy="45" r="40" fill="none" stroke="#eab308" stroke-width="8" class="gauge-ring" stroke-dashoffset="80" transform="rotate(-90 45 45)"></circle><text x="45" y="50" text-anchor="middle" class="text-lg font-bold fill-gray-800" font-size="18">
+         68%
+        </text>
+       </svg>
+       <div>
+        <p class="font-semibold text-gray-800">Feed Storage</p>
+        <p class="text-sm text-gray-500">34 kg / 50 kg</p><span class="inline-block mt-2 text-xs font-medium px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">Normal</span>
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-6">
+       <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="40" fill="none" stroke="#f3f4f6" stroke-width="8"></circle><circle cx="45" cy="45" r="40" fill="none" stroke="#3b82f6" stroke-width="8" class="gauge-ring" stroke-dashoffset="45" transform="rotate(-90 45 45)"></circle><text x="45" y="50" text-anchor="middle" class="text-lg font-bold fill-gray-800" font-size="18">
+         82%
+        </text>
+       </svg>
+       <div>
+        <p class="font-semibold text-gray-800">Water Tank</p>
+        <p class="text-sm text-gray-500">82 L / 100 L</p><span class="inline-block mt-2 text-xs font-medium px-2 py-0.5 rounded-full bg-farm-100 text-farm-700">Normal</span>
+       </div>
+      </div>
+     </div><!-- Hero Actions -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-3"><button onclick="showSection('feed')" class="bg-farm-600 hover:bg-farm-700 text-white rounded-2xl p-4 flex flex-col items-center gap-2 shadow-sm active:scale-95 transition-transform"><i data-lucide="play" class="w-6 h-6"></i><span class="text-xs font-semibold">MANUAL FEED</span></button> <button onclick="showSection('feed')" class="bg-farm-700 hover:bg-farm-800 text-white rounded-2xl p-4 flex flex-col items-center gap-2 shadow-sm active:scale-95 transition-transform"><i data-lucide="repeat" class="w-6 h-6"></i><span class="text-xs font-semibold">AUTO FEED</span></button> <button onclick="showSection('water')" class="bg-blue-500 hover:bg-blue-600 text-white rounded-2xl p-4 flex flex-col items-center gap-2 shadow-sm active:scale-95 transition-transform"><i data-lucide="droplets" class="w-6 h-6"></i><span class="text-xs font-semibold">WATER LEVEL</span></button> <button onclick="showSection('schedule')" class="bg-purple-500 hover:bg-purple-600 text-white rounded-2xl p-4 flex flex-col items-center gap-2 shadow-sm active:scale-95 transition-transform"><i data-lucide="syringe" class="w-6 h-6"></i><span class="text-xs font-semibold">VACCINE</span></button>
+     </div><!-- System Status -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
+       <p class="text-xs text-gray-500">Feeding System</p><span class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-farm-100 text-farm-700">Active</span>
+      </div>
+      <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
+       <p class="text-xs text-gray-500">Drinking System</p><span class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-farm-100 text-farm-700">Active</span>
+      </div>
+      <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
+       <p class="text-xs text-gray-500">Next Vaccine</p><span class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">Aug 15</span>
+      </div>
+      <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
+       <p class="text-xs text-gray-500">Next Vitamin</p><span class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">Aug 10</span>
       </div>
      </div>
-     <div class="project-card rounded-xl overflow-hidden shadow-lg">
-      <div class="overflow-hidden"><img data-template-id="project-2-img" class="canva-image w-full h-48 object-cover" loading="lazy" src="https://images.pexels.com/photos/242492/pexels-photo-242492.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Close-up of a tablet displaying diverse content collections in a grid format">
+    </div><!-- FEED SECTION -->
+    <div id="sec-feed" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="feed-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Feeding Management</h2><!-- Manual Feeding -->
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+      <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="hand" class="w-5 h-5 text-farm-600"></i>Manual Feeding</h3>
+      <div class="flex flex-col sm:flex-row gap-3">
+       <div class="flex-1"><label for="feed-amount" class="text-sm text-gray-600 block mb-1">Feed Amount (kg)</label> <input id="feed-amount" type="number" value="4" min="0.5" max="50" step="0.5" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-lg focus:ring-2 focus:ring-farm-500 focus:border-farm-500 outline-none">
+       </div>
+       <div class="flex gap-2 items-end"><button onclick="startFeed()" class="bg-farm-600 hover:bg-farm-700 text-white font-semibold px-6 py-3 rounded-xl active:scale-95 transition-transform">START</button> <button class="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-3 rounded-xl active:scale-95 transition-transform">STOP</button>
+       </div>
       </div>
-      <div data-template-id="project-2-card" class="canva-card p-5" style="background: rgb(255, 255, 255);">
-       <h3 data-template-id="project-2-title" class="canva-text font-semibold" style="color: rgb(26, 26, 26); font-weight: 600; font-style: normal; font-size: 19px;">Wellness App</h3>
-       <p data-template-id="project-2-desc" class="canva-text mt-2 text-sm opacity-70" style="color: rgb(85, 85, 85); font-weight: 400; font-style: normal; font-size: 16px;">Mobile app design focused on mindfulness and habit tracking.</p>
+      <div id="feed-confirm" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-4">
+       <p class="text-sm text-amber-800 mb-3">⚠️ Confirm: Dispense <span id="confirm-amount">4</span> kg of feed?</p>
+       <div class="flex gap-2"><button onclick="dispenseFeed()" class="bg-farm-600 text-white font-semibold px-5 py-2 rounded-lg">DISPENSE FEED NOW</button> <button onclick="document.getElementById('feed-confirm').classList.add('hidden')" class="bg-gray-200 text-gray-700 font-medium px-5 py-2 rounded-lg">Cancel</button>
+       </div>
+      </div>
+      <div id="feed-success" class="hidden bg-farm-50 border border-farm-200 rounded-xl p-4">
+       <p class="text-sm text-farm-800">✓ Feed dispensed successfully!</p>
+      </div>
+     </div><!-- Automatic Feeding -->
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+      <div class="flex items-center justify-between">
+       <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5 text-farm-600"></i>Automatic Feeding</h3><label class="flex items-center gap-2 cursor-pointer"><span class="text-sm text-gray-500">ON</span><input type="checkbox" class="toggle-input hidden" checked=""><span class="toggle-slider"></span></label>
+      </div>
+      <div class="space-y-3">
+       <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+        <div>
+         <p class="font-medium text-gray-800">6:00 AM</p>
+         <p class="text-sm text-gray-500">4 kg · Every Day</p>
+        </div>
+        <div class="flex gap-2">
+         <span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full font-medium">Enabled</span><button class="p-1.5 hover:bg-gray-200 rounded-lg"><i data-lucide="edit" class="w-4 h-4 text-gray-500"></i></button><button class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
+        </div>
+       </div>
+       <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+        <div>
+         <p class="font-medium text-gray-800">12:00 PM</p>
+         <p class="text-sm text-gray-500">3 kg · Every Day</p>
+        </div>
+        <div class="flex gap-2">
+         <span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full font-medium">Enabled</span><button class="p-1.5 hover:bg-gray-200 rounded-lg"><i data-lucide="edit" class="w-4 h-4 text-gray-500"></i></button><button class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
+        </div>
+       </div>
+       <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+        <div>
+         <p class="font-medium text-gray-800">5:00 PM</p>
+         <p class="text-sm text-gray-500">5 kg · Every Day</p>
+        </div>
+        <div class="flex gap-2">
+         <span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full font-medium">Enabled</span><button class="p-1.5 hover:bg-gray-200 rounded-lg"><i data-lucide="edit" class="w-4 h-4 text-gray-500"></i></button><button class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
+        </div>
+       </div>
+      </div><button class="w-full border-2 border-dashed border-farm-300 text-farm-600 font-semibold rounded-xl py-3 hover:bg-farm-50 transition-colors"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Feeding Schedule</button>
+     </div><!-- Feed Storage -->
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+      <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="package" class="w-5 h-5 text-amber-600"></i>Feed Storage Monitor</h3>
+      <div class="flex items-center gap-6">
+       <div class="w-20 h-32 rounded-xl border-2 border-amber-300 relative overflow-hidden bg-amber-50">
+        <div class="absolute bottom-0 left-0 right-0 bg-amber-400 transition-all" style="height:68%"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+         <span class="text-sm font-bold text-amber-900 z-10">68%</span>
+        </div>
+       </div>
+       <div class="flex-1 space-y-2">
+        <p class="text-sm text-gray-500">Capacity: <span class="font-semibold text-gray-800">50 kg</span></p>
+        <p class="text-sm text-gray-500">Remaining: <span class="font-semibold text-gray-800">34 kg</span></p>
+        <p class="text-sm text-gray-500">Status: <span class="font-semibold text-amber-600">Normal</span></p>
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
+         <p class="text-xs text-amber-700">⚠️ Feed level is getting low. Please refill the feed container.</p>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">Warning threshold: 20%</p>
+       </div>
       </div>
      </div>
-     <div class="project-card rounded-xl overflow-hidden shadow-lg">
-      <div class="overflow-hidden"><img data-template-id="project-3-img" class="canva-image w-full h-48 object-cover" loading="lazy" src="https://images.pexels.com/photos/5706020/pexels-photo-5706020.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Stack of blank white business cards on pastel surface">
+    </div><!-- WATER SECTION -->
+    <div id="sec-water" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="water-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Water Management</h2>
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+      <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="droplets" class="w-5 h-5 text-blue-600"></i>Water Tank</h3>
+      <div class="flex items-center gap-6">
+       <div class="w-20 h-32 rounded-xl border-2 border-blue-300 relative overflow-hidden bg-blue-50">
+        <div class="absolute bottom-0 left-0 right-0 bg-blue-400 transition-all" style="height:82%"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+         <span class="text-sm font-bold text-blue-900 z-10">82%</span>
+        </div>
+       </div>
+       <div class="flex-1 space-y-2">
+        <p class="text-sm text-gray-500">Capacity: <span class="font-semibold text-gray-800">100 L</span></p>
+        <p class="text-sm text-gray-500">Current: <span class="font-semibold text-gray-800">82 L</span></p>
+        <p class="text-sm text-gray-500">Status: <span class="font-semibold text-farm-600">Normal</span></p>
+        <p class="text-sm text-gray-500">Auto Refill: <span class="font-semibold text-farm-600">ON</span></p>
+       </div>
       </div>
-      <div data-template-id="project-3-card" class="canva-card p-5" style="background: rgb(255, 255, 255);">
-       <h3 data-template-id="project-3-title" class="canva-text font-semibold" style="color: rgb(26, 26, 26); font-weight: 600; font-style: normal; font-size: 19px;">Brand Identity</h3>
-       <p data-template-id="project-3-desc" class="canva-text mt-2 text-sm opacity-70" style="color: rgb(85, 85, 85); font-weight: 400; font-style: normal; font-size: 16px;">Complete branding package for a sustainable fashion startup.</p>
+      <div class="mt-4 flex flex-col sm:flex-row gap-3"><label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="toggle-input hidden" checked=""><span class="toggle-slider"></span><span class="text-sm text-gray-600">Automatic Water Refill</span></label> <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl active:scale-95 transition-transform ml-auto">REFILL WATER NOW</button>
+      </div>
+     </div>
+    </div><!-- SCHEDULE SECTION -->
+    <div id="sec-schedule" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="schedule-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Health Schedule</h2><!-- Vaccination -->
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+      <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="syringe" class="w-5 h-5 text-purple-600"></i>Vaccination Schedule</h3>
+      <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+       <div class="flex items-start justify-between">
+        <div>
+         <p class="font-semibold text-gray-800">Newcastle Disease Vaccine</p>
+         <p class="text-sm text-gray-500 mt-1">Aug 15, 2026 · 7:00 AM</p>
+         <p class="text-xs text-gray-400 mt-1">Age: 14 days · 100 birds · Drinking Water</p>
+        </div><span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-200 text-purple-800">Upcoming</span>
+       </div>
+      </div><button class="w-full border-2 border-dashed border-purple-300 text-purple-600 font-semibold rounded-xl py-3 hover:bg-purple-50"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Vaccine Schedule</button>
+     </div><!-- Vitamins -->
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+      <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="pill" class="w-5 h-5 text-orange-600"></i>Vitamin &amp; Supplement Schedule</h3>
+      <div class="bg-orange-50 rounded-xl p-4 border border-orange-100">
+       <div class="flex items-start justify-between">
+        <div>
+         <p class="font-semibold text-gray-800">Multivitamins + Electrolytes</p>
+         <p class="text-sm text-gray-500 mt-1">Aug 10, 2026 · 7:00 AM</p>
+         <p class="text-xs text-gray-400 mt-1">1 g/L · Drinking Water · 3 days</p>
+        </div><span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-200 text-orange-800">Upcoming</span>
+       </div>
+      </div><button class="w-full border-2 border-dashed border-orange-300 text-orange-600 font-semibold rounded-xl py-3 hover:bg-orange-50"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Vitamin Schedule</button>
+     </div>
+    </div><!-- POULTRY SECTION -->
+    <div id="sec-poultry" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="poultry-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Poultry Management</h2>
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+      <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="bird" class="w-5 h-5 text-farm-600"></i>Flock Summary</h3>
+      <div class="grid grid-cols-2 gap-4">
+       <div>
+        <p class="text-xs text-gray-500">Batch</p>
+        <p class="font-medium text-gray-800">Broiler Batch 01</p>
+       </div>
+       <div>
+        <p class="text-xs text-gray-500">Breed</p>
+        <p class="font-medium text-gray-800">Cobb 500</p>
+       </div>
+       <div>
+        <p class="text-xs text-gray-500">Population</p>
+        <p class="font-medium text-gray-800">100 birds</p>
+       </div>
+       <div>
+        <p class="text-xs text-gray-500">Age</p>
+        <p class="font-medium text-gray-800">21 Days</p>
+       </div>
+       <div>
+        <p class="text-xs text-gray-500">Avg Weight</p>
+        <p class="font-medium text-gray-800">0.85 kg</p>
+       </div>
+       <div>
+        <p class="text-xs text-gray-500">Mortality</p>
+        <p class="font-medium text-gray-800">0 birds</p>
+       </div>
+       <div>
+        <p class="text-xs text-gray-500">Date Acquired</p>
+        <p class="font-medium text-gray-800">July 17, 2026</p>
+       </div>
+       <div>
+        <p class="text-xs text-gray-500">Type</p>
+        <p class="font-medium text-gray-800">Broiler</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- NOTIFICATIONS SECTION -->
+    <div id="sec-notifications" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="notif-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Notifications &amp; Alerts</h2>
+     <div class="space-y-3">
+      <div class="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+       <div class="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center flex-shrink-0">
+        <i data-lucide="alert-triangle" class="w-4 h-4 text-red-600"></i>
+       </div>
+       <div>
+        <p class="font-medium text-red-800 text-sm">Low Feed Alert</p>
+        <p class="text-xs text-red-600">Feed level approaching 20% threshold · 2 min ago</p>
+       </div>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+       <div class="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center flex-shrink-0">
+        <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i>
+       </div>
+       <div>
+        <p class="font-medium text-amber-800 text-sm">Upcoming Vaccination</p>
+        <p class="text-xs text-amber-600">Newcastle Disease Vaccine due Aug 15 · 1 hr ago</p>
+       </div>
+      </div>
+      <div class="bg-farm-50 border border-farm-200 rounded-xl p-4 flex items-start gap-3">
+       <div class="w-8 h-8 rounded-full bg-farm-200 flex items-center justify-center flex-shrink-0">
+        <i data-lucide="check-circle" class="w-4 h-4 text-farm-600"></i>
+       </div>
+       <div>
+        <p class="font-medium text-farm-800 text-sm">Feeding Completed</p>
+        <p class="text-xs text-farm-600">Automatic feeding 5 kg dispensed · 8:00 AM</p>
+       </div>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3">
+       <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center flex-shrink-0">
+        <i data-lucide="info" class="w-4 h-4 text-blue-600"></i>
+       </div>
+       <div>
+        <p class="font-medium text-blue-800 text-sm">Vitamin Reminder</p>
+        <p class="text-xs text-blue-600">Multivitamins scheduled for Aug 10 · 5 hr ago</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- HISTORY SECTION -->
+    <div id="sec-history" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="history-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Activity History</h2>
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+      <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+       <div class="w-8 h-8 rounded-full bg-farm-100 flex items-center justify-center">
+        <i data-lucide="check" class="w-4 h-4 text-farm-600"></i>
+       </div>
+       <div class="flex-1">
+        <p class="text-sm font-medium text-gray-800">Automatic Feeding – 5 kg Dispensed</p>
+        <p class="text-xs text-gray-400">Aug 7, 2026 · 6:00 AM</p>
+       </div><span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full">Successful</span>
+      </div>
+      <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+       <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+        <i data-lucide="droplets" class="w-4 h-4 text-blue-600"></i>
+       </div>
+       <div class="flex-1">
+        <p class="text-sm font-medium text-gray-800">Water Auto Refill – 20L Added</p>
+        <p class="text-xs text-gray-400">Aug 7, 2026 · 5:30 AM</p>
+       </div><span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full">Successful</span>
+      </div>
+      <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+       <div class="w-8 h-8 rounded-full bg-farm-100 flex items-center justify-center">
+        <i data-lucide="check" class="w-4 h-4 text-farm-600"></i>
+       </div>
+       <div class="flex-1">
+        <p class="text-sm font-medium text-gray-800">Automatic Feeding – 3 kg Dispensed</p>
+        <p class="text-xs text-gray-400">Aug 6, 2026 · 12:00 PM</p>
+       </div><span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full">Successful</span>
+      </div>
+      <div class="flex items-center gap-3">
+       <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+        <i data-lucide="x" class="w-4 h-4 text-red-600"></i>
+       </div>
+       <div class="flex-1">
+        <p class="text-sm font-medium text-gray-800">Feeding Failed – Motor Error</p>
+        <p class="text-xs text-gray-400">Aug 5, 2026 · 5:00 PM</p>
+       </div><span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">Failed</span>
+      </div>
+     </div>
+    </div><!-- REPORTS SECTION -->
+    <div id="sec-reports" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="reports-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Reports &amp; Analytics</h2>
+     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
+       <p class="text-xs text-gray-500">Today's Feed</p>
+       <p class="text-xl font-bold text-gray-800 mt-1">12 kg</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
+       <p class="text-xs text-gray-500">Avg Daily</p>
+       <p class="text-xl font-bold text-gray-800 mt-1">11.5 kg</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
+       <p class="text-xs text-gray-500">Feed Left</p>
+       <p class="text-xl font-bold text-amber-600 mt-1">~3 Days</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
+       <p class="text-xs text-gray-500">Water Today</p>
+       <p class="text-xl font-bold text-gray-800 mt-1">18 L</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
+       <p class="text-xs text-gray-500">Mortality</p>
+       <p class="text-xl font-bold text-farm-600 mt-1">0%</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
+       <p class="text-xs text-gray-500">Population</p>
+       <p class="text-xl font-bold text-gray-800 mt-1">100</p>
+      </div>
+     </div><!-- Simple chart placeholder -->
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+      <h3 class="font-semibold text-gray-800 mb-4">Weekly Feed Consumption</h3>
+      <div class="flex items-end gap-2 h-32">
+       <div class="flex-1 flex flex-col items-center gap-1">
+        <div class="w-full bg-farm-400 rounded-t" style="height:60%"></div><span class="text-[10px] text-gray-400">Mon</span>
+       </div>
+       <div class="flex-1 flex flex-col items-center gap-1">
+        <div class="w-full bg-farm-400 rounded-t" style="height:75%"></div><span class="text-[10px] text-gray-400">Tue</span>
+       </div>
+       <div class="flex-1 flex flex-col items-center gap-1">
+        <div class="w-full bg-farm-400 rounded-t" style="height:65%"></div><span class="text-[10px] text-gray-400">Wed</span>
+       </div>
+       <div class="flex-1 flex flex-col items-center gap-1">
+        <div class="w-full bg-farm-400 rounded-t" style="height:80%"></div><span class="text-[10px] text-gray-400">Thu</span>
+       </div>
+       <div class="flex-1 flex flex-col items-center gap-1">
+        <div class="w-full bg-farm-400 rounded-t" style="height:70%"></div><span class="text-[10px] text-gray-400">Fri</span>
+       </div>
+       <div class="flex-1 flex flex-col items-center gap-1">
+        <div class="w-full bg-farm-400 rounded-t" style="height:90%"></div><span class="text-[10px] text-gray-400">Sat</span>
+       </div>
+       <div class="flex-1 flex flex-col items-center gap-1">
+        <div class="w-full bg-farm-500 rounded-t" style="height:85%"></div><span class="text-[10px] text-gray-400">Sun</span>
+       </div>
+      </div>
+     </div>
+    </div><!-- SETTINGS SECTION -->
+    <div id="sec-settings" class="section space-y-6 max-w-4xl mx-auto">
+     <h2 data-template-id="settings-title" class="canva-text font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Settings</h2>
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+      <h3 class="font-semibold text-gray-800">Farm Information</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+       <div>
+        <label class="text-xs text-gray-500 block mb-1" for="s-farm">Farm Name</label><input id="s-farm" type="text" value="Green Valley Poultry Farm" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-farm-500 outline-none">
+       </div>
+       <div>
+        <label class="text-xs text-gray-500 block mb-1" for="s-cap">Feed Capacity (kg)</label><input id="s-cap" type="number" value="50" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-farm-500 outline-none">
+       </div>
+       <div>
+        <label class="text-xs text-gray-500 block mb-1" for="s-water">Water Capacity (L)</label><input id="s-water" type="number" value="100" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-farm-500 outline-none">
+       </div>
+       <div>
+        <label class="text-xs text-gray-500 block mb-1" for="s-thresh">Low Feed Threshold (%)</label><input id="s-thresh" type="number" value="20" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-farm-500 outline-none">
+       </div>
+      </div>
+     </div><!-- Device Status -->
+     <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+      <h3 class="font-semibold text-gray-800">IoT Devices</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+       <div class="flex items-center gap-3 bg-farm-50 rounded-xl p-3">
+        <div class="w-3 h-3 bg-farm-500 rounded-full"></div>
+        <div>
+         <p class="text-sm font-medium text-gray-800">Feed Level Sensor</p>
+         <p class="text-xs text-gray-500">Connected</p>
+        </div>
+       </div>
+       <div class="flex items-center gap-3 bg-farm-50 rounded-xl p-3">
+        <div class="w-3 h-3 bg-farm-500 rounded-full"></div>
+        <div>
+         <p class="text-sm font-medium text-gray-800">Water Level Sensor</p>
+         <p class="text-xs text-gray-500">Connected</p>
+        </div>
+       </div>
+       <div class="flex items-center gap-3 bg-farm-50 rounded-xl p-3">
+        <div class="w-3 h-3 bg-farm-500 rounded-full"></div>
+        <div>
+         <p class="text-sm font-medium text-gray-800">Feeding Motor</p>
+         <p class="text-xs text-gray-500">Connected</p>
+        </div>
+       </div>
+       <div class="flex items-center gap-3 bg-farm-50 rounded-xl p-3">
+        <div class="w-3 h-3 bg-farm-500 rounded-full"></div>
+        <div>
+         <p class="text-sm font-medium text-gray-800">Water Pump</p>
+         <p class="text-xs text-gray-500">Connected</p>
+        </div>
+       </div>
+       <div class="flex items-center gap-3 bg-farm-50 rounded-xl p-3">
+        <div class="w-3 h-3 bg-farm-500 rounded-full"></div>
+        <div>
+         <p class="text-sm font-medium text-gray-800">ESP32 Controller</p>
+         <p class="text-xs text-gray-500">Connected</p>
+        </div>
+       </div>
+       <div class="flex items-center gap-3 bg-farm-50 rounded-xl p-3">
+        <div class="w-3 h-3 bg-farm-500 rounded-full"></div>
+        <div>
+         <p class="text-sm font-medium text-gray-800">Internet (Wi-Fi)</p>
+         <p class="text-xs text-gray-500">Connected</p>
+        </div>
+       </div>
       </div>
      </div>
     </div>
-   </section>
-   <section id="contact" data-template-id="contact-section" class="canva-section w-full py-20" style="background: rgb(26, 26, 26);">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-     <h2 data-template-id="contact-heading" class="canva-text heading-font" style="color: rgb(250, 249, 247); font-weight: 700; font-style: normal; font-size: 24px;">Let's Work Together</h2>
-     <p data-template-id="contact-text" class="canva-text mt-4 text-lg" style="color: rgb(204, 204, 204); font-weight: 400; font-style: normal; font-size: 16px;">Have a project in mind? I'd love to hear about it.</p><a href="dashboard.html" data-template-id="contact-button" class="canva-button inline-block mt-8 px-8 py-3 rounded-full font-medium no-underline" style="background: rgb(232, 201, 109); color: rgb(26, 26, 26); font-weight: 600; font-style: normal; font-size: 16px;">Say Hello</a>
-    </div>
-   </section>
-  </main>
-  <footer class="w-full py-8 text-center">
-   <p data-template-id="footer-text" class="canva-text text-sm opacity-60" style="color: rgb(136, 136, 136); font-weight: 400; font-style: normal; font-size: 16px;">© 2026 Gleen Mejos Rubio. All rights reserved.</p>
-  </footer>
-  <script src="/_sdk/c94a279e896d0a23.editing_sdk.js" integrity="sha512-uhzUP50YzTVKO+Zk7rEhhvjMMNFy592eHXVEXciJzhLpIQxrlwzWv/DQvyYWQ+AKpYwxxCvjgWkVa5LTga2NWg=="></script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a13b4560b71eddc7',t:'MTc4MjgwMjU4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+   </main>
+  </div><!-- Mobile Bottom Nav -->
+  <nav class="mobile-nav fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center py-2 z-50"><button onclick="showSection('home')" class="nav-item-m active flex flex-col items-center gap-0.5 p-2"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span class="text-[10px]">Home</span></button> <button onclick="showSection('feed')" class="nav-item-m flex flex-col items-center gap-0.5 p-2"><i data-lucide="wheat" class="w-5 h-5"></i><span class="text-[10px]">Feed</span></button> <button onclick="showSection('water')" class="nav-item-m flex flex-col items-center gap-0.5 p-2"><i data-lucide="droplets" class="w-5 h-5"></i><span class="text-[10px]">Water</span></button> <button onclick="showSection('schedule')" class="nav-item-m flex flex-col items-center gap-0.5 p-2"><i data-lucide="calendar" class="w-5 h-5"></i><span class="text-[10px]">Schedule</span></button> <button onclick="showSection('settings')" class="nav-item-m flex flex-col items-center gap-0.5 p-2"><i data-lucide="menu" class="w-5 h-5"></i><span class="text-[10px]">More</span></button>
+  </nav>
+  <script src="/_sdk/571d88ca352bbccf.editing_sdk.js" integrity="sha512-jpVzCgOJfgU8ETK2cVi9ukdjrZIqXjCspYqy9afx1TyeJ4jZxisBmh2SIlonXgbaxCv9M5yrk3WY4wZKWDC3Ig=="></script>
+  <script>
+    // Navigation
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('sec-' + id).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.querySelectorAll('.nav-item-m').forEach(n => n.classList.remove('active'));
+        // highlight desktop
+        const desktopBtns = document.querySelectorAll('.desktop-sidebar .nav-item');
+        desktopBtns.forEach(b => { if(b.textContent.trim().toLowerCase().includes(id)) b.classList.add('active'); });
+    }
+
+    // Clock
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('header-datetime').textContent = now.toLocaleDateString('en-PH', { weekday:'short', month:'short', day:'numeric', year:'numeric' }) + ' · ' + now.toLocaleTimeString('en-PH', { hour:'2-digit', minute:'2-digit' });
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    // Feed confirmation
+    function startFeed() {
+        const amt = document.getElementById('feed-amount').value;
+        document.getElementById('confirm-amount').textContent = amt;
+        document.getElementById('feed-confirm').classList.remove('hidden');
+        document.getElementById('feed-success').classList.add('hidden');
+    }
+    function dispenseFeed() {
+        document.getElementById('feed-confirm').classList.add('hidden');
+        document.getElementById('feed-success').classList.remove('hidden');
+        setTimeout(() => document.getElementById('feed-success').classList.add('hidden'), 3000);
+    }
+
+    lucide.createIcons();
+</script>
+ 
 </body></html>
