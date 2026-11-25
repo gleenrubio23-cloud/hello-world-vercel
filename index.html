@@ -46,7 +46,7 @@
      <p id="header-datetime" class="text-xs text-gray-500"></p>
     </div>
    </div>
-   <div class="flex items-center gap-3"><span id="system-status" class="text-xs font-semibold px-2 py-1 rounded-full bg-farm-100 text-farm-700">● Online</span> <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" class="toggle-input hidden" checked=""><span class="toggle-slider"></span><span class="text-xs text-gray-600 hidden sm:inline">Auto</span></label> <button class="relative p-2 rounded-full hover:bg-gray-100" onclick="showSection('notifications')"><i data-lucide="bell" class="w-5 h-5 text-gray-600"></i><span class="absolute top-1 right-1 w-4 h-4 bg-crit text-white text-[10px] rounded-full flex items-center justify-center" id="alert-badge">0</span></button>
+   <div class="flex items-center gap-3"><span id="system-status" class="text-xs font-semibold px-2 py-1 rounded-full bg-farm-100 text-farm-700">● Online</span> <label class="flex items-center gap-1 cursor-pointer"><input id="header-auto-toggle" type="checkbox" class="toggle-input hidden" checked="" onchange="setAutoFeed(this.checked)"><span class="toggle-slider"></span><span class="text-xs text-gray-600 hidden sm:inline">Auto Feed</span></label> <button class="relative p-2 rounded-full hover:bg-gray-100" onclick="showSection('notifications')"><i data-lucide="bell" class="w-5 h-5 text-gray-600"></i><span class="absolute top-1 right-1 w-4 h-4 bg-crit text-white text-[10px] rounded-full flex items-center justify-center" id="alert-badge">0</span></button>
     <div class="w-8 h-8 rounded-full bg-farm-200 flex items-center justify-center">
      <i data-lucide="user" class="w-4 h-4 text-farm-700"></i>
     </div>
@@ -96,8 +96,8 @@
          <i data-lucide="clock" class="w-4 h-4 text-farm-600"></i>
         </div><span class="text-xs text-gray-500 font-medium">Next Feed</span>
        </div>
-       <p class="text-lg font-bold text-gray-800">5:00 PM</p>
-       <p class="text-xs text-gray-400 mt-1">5 kg scheduled</p>
+       <p id="next-feed-time" class="text-lg font-bold text-gray-800">—</p>
+       <p id="next-feed-detail" class="text-xs text-gray-400 mt-1">No feeding scheduled</p>
       </div>
      </div><!-- Gauge Cards -->
      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -128,16 +128,16 @@
      </div><!-- System Status -->
      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
-       <p class="text-xs text-gray-500">Feeding System</p><span class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-farm-100 text-farm-700">Active</span>
+       <p class="text-xs text-gray-500">Feeding System</p><span id="feeding-system-status" class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-farm-100 text-farm-700">Active</span>
       </div>
       <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
        <p class="text-xs text-gray-500">Drinking System</p><span class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-farm-100 text-farm-700">Active</span>
       </div>
       <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
-       <p class="text-xs text-gray-500">Next Vaccine</p><span data-due-tile="2026-08-15T07:00" class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">Aug 15</span>
+       <p class="text-xs text-gray-500">Next Vaccine</p><span id="next-vaccine" class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">—</span>
       </div>
       <div class="bg-white rounded-xl p-3 border border-gray-100 text-center">
-       <p class="text-xs text-gray-500">Next Vitamin</p><span data-due-tile="2026-08-10T07:00" class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">Aug 10</span>
+       <p class="text-xs text-gray-500">Next Vitamin</p><span id="next-vitamin" class="inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">—</span>
       </div>
      </div>
     </div><!-- FEED SECTION -->
@@ -163,37 +163,10 @@
      </div><!-- Automatic Feeding -->
      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
       <div class="flex items-center justify-between">
-       <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5 text-farm-600"></i>Automatic Feeding</h3><label class="flex items-center gap-2 cursor-pointer"><span class="text-sm text-gray-500">ON</span><input type="checkbox" class="toggle-input hidden" checked=""><span class="toggle-slider"></span></label>
+       <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5 text-farm-600"></i>Automatic Feeding</h3><label class="flex items-center gap-2 cursor-pointer"><span id="auto-feed-label" class="text-sm text-gray-500">ON</span><input id="auto-feed-toggle" type="checkbox" class="toggle-input hidden" checked="" onchange="setAutoFeed(this.checked)"><span class="toggle-slider"></span></label>
       </div>
-      <div class="space-y-3">
-       <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4">
-        <div>
-         <p class="font-medium text-gray-800">6:00 AM</p>
-         <p class="text-sm text-gray-500">4 kg · Every Day</p>
-        </div>
-        <div class="flex gap-2">
-         <span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full font-medium">Enabled</span><button class="p-1.5 hover:bg-gray-200 rounded-lg"><i data-lucide="edit" class="w-4 h-4 text-gray-500"></i></button><button class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
-        </div>
-       </div>
-       <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4">
-        <div>
-         <p class="font-medium text-gray-800">12:00 PM</p>
-         <p class="text-sm text-gray-500">3 kg · Every Day</p>
-        </div>
-        <div class="flex gap-2">
-         <span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full font-medium">Enabled</span><button class="p-1.5 hover:bg-gray-200 rounded-lg"><i data-lucide="edit" class="w-4 h-4 text-gray-500"></i></button><button class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
-        </div>
-       </div>
-       <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4">
-        <div>
-         <p class="font-medium text-gray-800">5:00 PM</p>
-         <p class="text-sm text-gray-500">5 kg · Every Day</p>
-        </div>
-        <div class="flex gap-2">
-         <span class="text-xs bg-farm-100 text-farm-700 px-2 py-0.5 rounded-full font-medium">Enabled</span><button class="p-1.5 hover:bg-gray-200 rounded-lg"><i data-lucide="edit" class="w-4 h-4 text-gray-500"></i></button><button class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
-        </div>
-       </div>
-      </div><button class="w-full border-2 border-dashed border-farm-300 text-farm-600 font-semibold rounded-xl py-3 hover:bg-farm-50 transition-colors"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Feeding Schedule</button>
+      <p id="auto-feed-paused" class="hidden text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">Automatic feeding is paused. Schedules below will not run until it is turned back on.</p>
+      <div id="feed-schedule-list" class="space-y-3"></div><button onclick="openFeedModal()" class="w-full border-2 border-dashed border-farm-300 text-farm-600 font-semibold rounded-xl py-3 hover:bg-farm-50 transition-colors"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Feeding Schedule</button>
      </div><!-- Feed Storage -->
      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
       <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="package" class="w-5 h-5 text-amber-600"></i>Feed Storage Monitor</h3>
@@ -242,27 +215,11 @@
      <h2 class="font-bold text-gray-800" style="color: rgb(31, 41, 55); font-weight: 700; font-style: normal; font-size: 24px;">Health Schedule</h2><!-- Vaccination -->
      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
       <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="syringe" class="w-5 h-5 text-purple-600"></i>Vaccination Schedule</h3>
-      <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
-       <div class="flex items-start justify-between">
-        <div>
-         <p class="font-semibold text-gray-800">Newcastle Disease Vaccine</p>
-         <p class="text-sm text-gray-500 mt-1">Aug 15, 2026 · 7:00 AM</p>
-         <p class="text-xs text-gray-400 mt-1">Age: 14 days · 100 birds · Drinking Water</p>
-        </div><span class="due-badge text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-200 text-purple-800" data-due="2026-08-15T07:00">Upcoming</span>
-       </div>
-      </div><button class="w-full border-2 border-dashed border-purple-300 text-purple-600 font-semibold rounded-xl py-3 hover:bg-purple-50"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Vaccine Schedule</button>
+      <div id="vaccine-list" class="space-y-3"></div><button onclick="openHealthModal('vaccine')" class="w-full border-2 border-dashed border-purple-300 text-purple-600 font-semibold rounded-xl py-3 hover:bg-purple-50"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Vaccine Schedule</button>
      </div><!-- Vitamins -->
      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
       <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i data-lucide="pill" class="w-5 h-5 text-orange-600"></i>Vitamin &amp; Supplement Schedule</h3>
-      <div class="bg-orange-50 rounded-xl p-4 border border-orange-100">
-       <div class="flex items-start justify-between">
-        <div>
-         <p class="font-semibold text-gray-800">Multivitamins + Electrolytes</p>
-         <p class="text-sm text-gray-500 mt-1">Aug 10, 2026 · 7:00 AM</p>
-         <p class="text-xs text-gray-400 mt-1">1 g/L · Drinking Water · 3 days</p>
-        </div><span class="due-badge text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-200 text-orange-800" data-due="2026-08-10T07:00">Upcoming</span>
-       </div>
-      </div><button class="w-full border-2 border-dashed border-orange-300 text-orange-600 font-semibold rounded-xl py-3 hover:bg-orange-50"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Vitamin Schedule</button>
+      <div id="vitamin-list" class="space-y-3"></div><button onclick="openHealthModal('vitamin')" class="w-full border-2 border-dashed border-orange-300 text-orange-600 font-semibold rounded-xl py-3 hover:bg-orange-50"><i data-lucide="plus" class="w-4 h-4 inline"></i> Add Vitamin Schedule</button>
      </div>
     </div><!-- POULTRY SECTION -->
     <div id="sec-poultry" class="section space-y-6 max-w-4xl mx-auto">
@@ -317,15 +274,7 @@
         <p class="text-xs text-red-600">Feed level is below the <span class="feed-threshold-text">20</span>% threshold</p>
        </div>
       </div>
-      <div class="alert-item bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
-       <div class="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center flex-shrink-0">
-        <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i>
-       </div>
-       <div>
-        <p class="font-medium text-amber-800 text-sm" data-due-title="2026-08-15T07:00" data-label="Vaccination">Upcoming Vaccination</p>
-        <p class="text-xs text-amber-600">Newcastle Disease Vaccine due Aug 15 · 1 hr ago</p>
-       </div>
-      </div>
+      <div id="health-alerts" class="space-y-3"></div>
       <div class="alert-item bg-farm-50 border border-farm-200 rounded-xl p-4 flex items-start gap-3">
        <div class="w-8 h-8 rounded-full bg-farm-200 flex items-center justify-center flex-shrink-0">
         <i data-lucide="check-circle" class="w-4 h-4 text-farm-600"></i>
@@ -333,15 +282,6 @@
        <div>
         <p class="font-medium text-farm-800 text-sm">Feeding Completed</p>
         <p class="text-xs text-farm-600">Automatic feeding 5 kg dispensed · 8:00 AM</p>
-       </div>
-      </div>
-      <div class="alert-item bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3">
-       <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center flex-shrink-0">
-        <i data-lucide="info" class="w-4 h-4 text-blue-600"></i>
-       </div>
-       <div>
-        <p class="font-medium text-blue-800 text-sm" data-due-title="2026-08-10T07:00" data-label="Vitamin Dose">Vitamin Reminder</p>
-        <p class="text-xs text-blue-600">Multivitamins scheduled for Aug 10 · 5 hr ago</p>
        </div>
       </div>
      </div>
@@ -518,6 +458,38 @@
     <button onclick="showSection('poultry')" data-section="poultry" class="nav-item-m flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="bird" class="w-5 h-5"></i>Poultry</button> <button onclick="showSection('notifications')" data-section="notifications" class="nav-item-m flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="bell" class="w-5 h-5"></i>Alerts</button> <button onclick="showSection('history')" data-section="history" class="nav-item-m flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="clock" class="w-5 h-5"></i>History</button> <button onclick="showSection('reports')" data-section="reports" class="nav-item-m flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="bar-chart-3" class="w-5 h-5"></i>Reports</button> <button onclick="showSection('settings')" data-section="settings" class="nav-item-m flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium hover:bg-farm-50 w-full text-left"><i data-lucide="settings" class="w-5 h-5"></i>Settings</button>
    </div>
   </div>
+  <!-- Feeding Schedule Modal -->
+  <div id="feed-modal" class="hidden fixed inset-0 z-[60] bg-black/40 flex items-end sm:items-center justify-center p-3" onclick="if(event.target===this) closeModal('feed-modal')">
+   <form id="feed-form" class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 space-y-4" onsubmit="saveFeedSchedule(event)">
+    <h3 id="feed-modal-title" class="font-semibold text-gray-800 text-lg">Add Feeding Schedule</h3>
+    <input type="hidden" id="ff-id">
+    <div class="grid grid-cols-2 gap-3">
+     <div><label for="ff-time" class="text-sm text-gray-600 block mb-1">Time</label><input id="ff-time" type="time" required class="w-full border border-gray-200 rounded-xl px-3 py-2 focus:ring-2 focus:ring-farm-500 outline-none"></div>
+     <div><label for="ff-kg" class="text-sm text-gray-600 block mb-1">Amount (kg)</label><input id="ff-kg" type="number" min="0.5" max="50" step="0.5" required class="w-full border border-gray-200 rounded-xl px-3 py-2 focus:ring-2 focus:ring-farm-500 outline-none"></div>
+    </div>
+    <div>
+     <p class="text-sm text-gray-600 mb-1">Days</p>
+     <div id="ff-days" class="flex flex-wrap gap-1"></div>
+    </div>
+    <label class="flex items-center gap-2 cursor-pointer"><input id="ff-enabled" type="checkbox" class="toggle-input hidden" checked><span class="toggle-slider"></span><span class="text-sm text-gray-600">Enabled</span></label>
+    <p id="ff-error" class="hidden text-sm text-red-600"></p>
+    <div class="flex gap-2 justify-end"><button type="button" onclick="closeModal('feed-modal')" class="bg-gray-200 text-gray-700 font-medium px-5 py-2 rounded-lg">Cancel</button><button type="submit" class="bg-farm-600 hover:bg-farm-700 text-white font-semibold px-5 py-2 rounded-lg">Save</button></div>
+   </form>
+  </div>
+  <!-- Health Schedule Modal -->
+  <div id="health-modal" class="hidden fixed inset-0 z-[60] bg-black/40 flex items-end sm:items-center justify-center p-3" onclick="if(event.target===this) closeModal('health-modal')">
+   <form id="health-form" class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 space-y-4" onsubmit="saveHealthSchedule(event)">
+    <h3 id="health-modal-title" class="font-semibold text-gray-800 text-lg">Add Vaccine Schedule</h3>
+    <input type="hidden" id="hf-id"><input type="hidden" id="hf-type">
+    <div><label for="hf-name" class="text-sm text-gray-600 block mb-1">Name</label><input id="hf-name" type="text" required maxlength="80" class="w-full border border-gray-200 rounded-xl px-3 py-2 focus:ring-2 focus:ring-farm-500 outline-none"></div>
+    <div class="grid grid-cols-2 gap-3">
+     <div><label for="hf-date" class="text-sm text-gray-600 block mb-1">Date</label><input id="hf-date" type="date" required class="w-full border border-gray-200 rounded-xl px-3 py-2 focus:ring-2 focus:ring-farm-500 outline-none"></div>
+     <div><label for="hf-time" class="text-sm text-gray-600 block mb-1">Time</label><input id="hf-time" type="time" required value="07:00" class="w-full border border-gray-200 rounded-xl px-3 py-2 focus:ring-2 focus:ring-farm-500 outline-none"></div>
+    </div>
+    <div><label for="hf-details" class="text-sm text-gray-600 block mb-1">Details <span class="text-gray-400">(dose, method, duration)</span></label><input id="hf-details" type="text" maxlength="120" class="w-full border border-gray-200 rounded-xl px-3 py-2 focus:ring-2 focus:ring-farm-500 outline-none"></div>
+    <div class="flex gap-2 justify-end"><button type="button" onclick="closeModal('health-modal')" class="bg-gray-200 text-gray-700 font-medium px-5 py-2 rounded-lg">Cancel</button><button type="submit" class="bg-farm-600 hover:bg-farm-700 text-white font-semibold px-5 py-2 rounded-lg">Save</button></div>
+   </form>
+  </div>
   <script>
     // Navigation
     function showSection(id) {
@@ -563,29 +535,297 @@
     document.getElementById('s-thresh').addEventListener('input', updateFeedStatus);
     document.getElementById('s-cap').addEventListener('input', updateFeedStatus);
 
-    // Due dates: label schedule items Upcoming / Due Today / Overdue based on today's date
-    function dueState(iso) {
-        const due = new Date(iso), now = new Date();
+    // ===== Schedules (saved in this browser's localStorage) =====
+    const STORE_KEY = 'poultry.schedules.v1';
+    const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const ALL_DAYS = [0,1,2,3,4,5,6];
+    const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    const esc = str => String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    function defaultState() {
+        return {
+            autoFeed: true,
+            feed: [
+                { id: newId(), time: '06:00', kg: 4, days: ALL_DAYS.slice(), enabled: true },
+                { id: newId(), time: '12:00', kg: 3, days: ALL_DAYS.slice(), enabled: true },
+                { id: newId(), time: '17:00', kg: 5, days: ALL_DAYS.slice(), enabled: true }
+            ],
+            health: [
+                { id: newId(), type: 'vaccine', name: 'Newcastle Disease Vaccine', due: '2026-08-15T07:00', details: 'Age: 14 days · 100 birds · Drinking Water', done: false },
+                { id: newId(), type: 'vitamin', name: 'Multivitamins + Electrolytes', due: '2026-08-10T07:00', details: '1 g/L · Drinking Water · 3 days', done: false }
+            ]
+        };
+    }
+    function loadState() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORE_KEY));
+            if (saved && Array.isArray(saved.feed) && Array.isArray(saved.health)) return saved;
+        } catch (e) { /* corrupt or unavailable storage: fall back to defaults */ }
+        return defaultState();
+    }
+    let state = loadState();
+    function saveState() {
+        try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { console.warn('Could not save schedules', e); }
+        renderSchedules();
+    }
+
+    // ----- formatting helpers -----
+    function fmtTime(hhmm) {
+        const [h, m] = hhmm.split(':').map(Number);
+        return new Date(2000, 0, 1, h, m).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
+    function fmtDateTime(d) {
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' · ' +
+               d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
+    function daysLabel(days) {
+        const d = days.slice().sort();
+        if (d.length === 7) return 'Every Day';
+        if (d.join() === '1,2,3,4,5') return 'Weekdays';
+        if (d.join() === '0,6') return 'Weekends';
+        return d.map(i => DAY_NAMES[i]).join(', ');
+    }
+    function dueState(item) {
+        if (item.done) return 'done';
+        const due = new Date(item.due), now = new Date();
         if (due.toDateString() === now.toDateString()) return 'today';
         return due < now ? 'overdue' : 'upcoming';
     }
-    const DUE_TEXT = { upcoming: 'Upcoming', today: 'Due Today', overdue: 'Overdue' };
-    function updateDueDates() {
-        document.querySelectorAll('.due-badge').forEach(b => {
-            const st = dueState(b.dataset.due);
-            b.textContent = DUE_TEXT[st];
-            if (st === 'overdue') b.className = 'due-badge text-xs font-semibold px-2 py-0.5 rounded-full bg-red-100 text-red-700';
-        });
-        document.querySelectorAll('[data-due-tile]').forEach(t => {
-            if (dueState(t.dataset.dueTile) === 'overdue') {
-                t.className = 'inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-red-100 text-red-700';
-                t.textContent += ' · Overdue';
+    const DUE_TEXT = { upcoming: 'Upcoming', today: 'Due Today', overdue: 'Overdue', done: 'Done' };
+    const TYPE_INFO = {
+        vaccine: { label: 'Vaccination', noun: 'Vaccine', color: 'purple', icon: 'syringe' },
+        vitamin: { label: 'Vitamin Dose', noun: 'Vitamin', color: 'orange', icon: 'pill' }
+    };
+
+    // ----- next scheduled feeding -----
+    function nextFeeding() {
+        if (!state.autoFeed) return null;
+        const now = new Date();
+        let best = null;
+        for (const s of state.feed) {
+            if (!s.enabled || !s.days.length) continue;
+            const [h, m] = s.time.split(':').map(Number);
+            for (let d = 0; d < 8; d++) {
+                const t = new Date(now.getFullYear(), now.getMonth(), now.getDate() + d, h, m);
+                if (t <= now || !s.days.includes(t.getDay())) continue;
+                if (!best || t < best.when) best = { when: t, sched: s };
+                break;
             }
-        });
-        document.querySelectorAll('[data-due-title]').forEach(t => {
-            t.textContent = DUE_TEXT[dueState(t.dataset.dueTitle)] + ' ' + t.dataset.label;
-        });
+        }
+        return best;
     }
+    function dayWord(t) {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const diff = Math.round((new Date(t.getFullYear(), t.getMonth(), t.getDate()) - today) / 86400000);
+        return diff === 0 ? 'Today' : diff === 1 ? 'Tomorrow' : DAY_NAMES[t.getDay()];
+    }
+
+    // ----- rendering -----
+    function renderFeedSchedules() {
+        const list = document.getElementById('feed-schedule-list');
+        const items = state.feed.slice().sort((a, b) => a.time.localeCompare(b.time));
+        list.innerHTML = items.length ? items.map(s => `
+            <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4 ${s.enabled && state.autoFeed ? '' : 'opacity-60'}">
+             <div>
+              <p class="font-medium text-gray-800">${fmtTime(s.time)}</p>
+              <p class="text-sm text-gray-500">${s.kg} kg · ${daysLabel(s.days)}</p>
+             </div>
+             <div class="flex gap-2 items-center">
+              <button onclick="toggleFeedSchedule('${s.id}')" title="Click to ${s.enabled ? 'disable' : 'enable'}" class="text-xs px-2 py-0.5 rounded-full font-medium ${s.enabled ? 'bg-farm-100 text-farm-700' : 'bg-gray-200 text-gray-600'}">${s.enabled ? 'Enabled' : 'Disabled'}</button>
+              <button onclick="openFeedModal('${s.id}')" aria-label="Edit schedule" class="p-1.5 hover:bg-gray-200 rounded-lg"><i data-lucide="pencil" class="w-4 h-4 text-gray-500"></i></button>
+              <button onclick="deleteFeedSchedule('${s.id}')" aria-label="Delete schedule" class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
+             </div>
+            </div>`).join('')
+            : '<p class="text-sm text-gray-400 text-center py-4">No feeding schedules yet.</p>';
+
+        document.getElementById('auto-feed-toggle').checked = state.autoFeed;
+        document.getElementById('header-auto-toggle').checked = state.autoFeed;
+        document.getElementById('auto-feed-label').textContent = state.autoFeed ? 'ON' : 'OFF';
+        document.getElementById('auto-feed-paused').classList.toggle('hidden', state.autoFeed);
+        const sys = document.getElementById('feeding-system-status');
+        sys.textContent = state.autoFeed ? 'Active' : 'Paused';
+        sys.className = 'inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full ' + (state.autoFeed ? 'bg-farm-100 text-farm-700' : 'bg-amber-100 text-amber-700');
+
+        const next = nextFeeding();
+        document.getElementById('next-feed-time').textContent = next ? fmtTime(next.sched.time) : '—';
+        document.getElementById('next-feed-detail').textContent = next
+            ? `${dayWord(next.when)} · ${next.sched.kg} kg scheduled`
+            : (state.autoFeed ? 'No feeding scheduled' : 'Auto feeding paused');
+    }
+
+    function badgeClass(st, color) {
+        return { done: 'bg-gray-200 text-gray-600', overdue: 'bg-red-100 text-red-700', today: 'bg-amber-100 text-amber-700' }[st]
+            || `bg-${color}-200 text-${color}-800`;
+    }
+    function renderHealthList(type) {
+        const info = TYPE_INFO[type];
+        const list = document.getElementById(type + '-list');
+        const items = state.health.filter(h => h.type === type)
+            .sort((a, b) => (a.done - b.done) || a.due.localeCompare(b.due));
+        list.innerHTML = items.length ? items.map(h => {
+            const st = dueState(h);
+            return `
+            <div class="bg-${info.color}-50 rounded-xl p-4 border border-${info.color}-100 ${h.done ? 'opacity-60' : ''}">
+             <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+               <p class="font-semibold text-gray-800 ${h.done ? 'line-through' : ''}">${esc(h.name)}</p>
+               <p class="text-sm text-gray-500 mt-1">${fmtDateTime(new Date(h.due))}</p>
+               ${h.details ? `<p class="text-xs text-gray-400 mt-1">${esc(h.details)}</p>` : ''}
+              </div>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${badgeClass(st, info.color)}">${DUE_TEXT[st]}</span>
+             </div>
+             <div class="flex gap-2 mt-3">
+              <button onclick="toggleHealthDone('${h.id}')" class="text-xs font-medium px-3 py-1.5 rounded-lg ${h.done ? 'bg-gray-200 text-gray-700' : 'bg-farm-600 text-white hover:bg-farm-700'}">${h.done ? 'Undo' : 'Mark Done'}</button>
+              <button onclick="openHealthModal('${type}', '${h.id}')" aria-label="Edit" class="p-1.5 hover:bg-white rounded-lg"><i data-lucide="pencil" class="w-4 h-4 text-gray-500"></i></button>
+              <button onclick="deleteHealthSchedule('${h.id}')" aria-label="Delete" class="p-1.5 hover:bg-red-100 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
+             </div>
+            </div>`;
+        }).join('') : `<p class="text-sm text-gray-400 text-center py-4">No ${info.noun.toLowerCase()} schedules yet.</p>`;
+
+        // Home tile: earliest item not yet done (overdue ones come first)
+        const tile = document.getElementById('next-' + type);
+        const next = items.find(h => !h.done);
+        if (!next) {
+            tile.textContent = 'None';
+            tile.className = 'inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600';
+        } else {
+            const st = dueState(next);
+            const d = new Date(next.due).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            tile.textContent = st === 'overdue' ? d + ' · Overdue' : st === 'today' ? 'Today' : d;
+            tile.className = 'inline-block mt-1 text-xs font-semibold px-2 py-0.5 rounded-full ' +
+                (st === 'overdue' ? 'bg-red-100 text-red-700' : `bg-${info.color}-100 text-${info.color}-700`);
+        }
+    }
+
+    // Alerts for health items that are overdue, due today, or due within 7 days
+    function renderHealthAlerts() {
+        const soon = Date.now() + 7 * 86400000;
+        const items = state.health
+            .filter(h => !h.done && new Date(h.due).getTime() <= soon)
+            .sort((a, b) => a.due.localeCompare(b.due));
+        document.getElementById('health-alerts').innerHTML = items.map(h => {
+            const st = dueState(h), info = TYPE_INFO[h.type];
+            const c = st === 'overdue' ? 'red' : 'amber';
+            const title = st === 'overdue' ? 'Overdue ' + info.label : st === 'today' ? info.label + ' Due Today' : 'Upcoming ' + info.label;
+            return `
+            <div class="alert-item bg-${c}-50 border border-${c}-200 rounded-xl p-4 flex items-start gap-3 cursor-pointer" onclick="showSection('schedule')">
+             <div class="w-8 h-8 rounded-full bg-${c}-200 flex items-center justify-center flex-shrink-0"><i data-lucide="${info.icon}" class="w-4 h-4 text-${c}-600"></i></div>
+             <div>
+              <p class="font-medium text-${c}-800 text-sm">${title}</p>
+              <p class="text-xs text-${c}-600">${esc(h.name)} · ${fmtDateTime(new Date(h.due))}</p>
+             </div>
+            </div>`;
+        }).join('');
+    }
+
+    function renderSchedules() {
+        renderFeedSchedules();
+        renderHealthList('vaccine');
+        renderHealthList('vitamin');
+        renderHealthAlerts();
+        updateAlertBadge();
+        if (window.lucide) lucide.createIcons();
+    }
+
+    // ----- modal helpers -----
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('feed-modal'); closeModal('health-modal'); } });
+
+    // ----- feeding schedule actions -----
+    document.getElementById('ff-days').innerHTML = DAY_NAMES.map((n, i) =>
+        `<label class="cursor-pointer"><input type="checkbox" value="${i}" class="peer hidden"><span class="inline-block px-3 py-1.5 rounded-lg border border-gray-200 text-sm text-gray-600 peer-checked:bg-farm-600 peer-checked:text-white peer-checked:border-farm-600">${n}</span></label>`).join('');
+
+    function openFeedModal(id) {
+        const s = state.feed.find(x => x.id === id);
+        document.getElementById('feed-modal-title').textContent = s ? 'Edit Feeding Schedule' : 'Add Feeding Schedule';
+        document.getElementById('ff-id').value = s ? s.id : '';
+        document.getElementById('ff-time').value = s ? s.time : '';
+        document.getElementById('ff-kg').value = s ? s.kg : 4;
+        document.getElementById('ff-enabled').checked = s ? s.enabled : true;
+        const days = s ? s.days : ALL_DAYS;
+        document.querySelectorAll('#ff-days input').forEach(c => c.checked = days.includes(+c.value));
+        document.getElementById('ff-error').classList.add('hidden');
+        openModal('feed-modal');
+        document.getElementById('ff-time').focus();
+    }
+    function saveFeedSchedule(e) {
+        e.preventDefault();
+        const id = document.getElementById('ff-id').value;
+        const time = document.getElementById('ff-time').value;
+        const kg = parseFloat(document.getElementById('ff-kg').value);
+        const days = [...document.querySelectorAll('#ff-days input:checked')].map(c => +c.value);
+        const enabled = document.getElementById('ff-enabled').checked;
+        const err = document.getElementById('ff-error');
+        const fail = msg => { err.textContent = msg; err.classList.remove('hidden'); };
+        if (!time) return fail('Choose a time.');
+        if (isNaN(kg) || kg < 0.5 || kg > 50) return fail('Amount must be between 0.5 and 50 kg.');
+        if (!days.length) return fail('Pick at least one day.');
+        const clash = state.feed.find(s => s.id !== id && s.time === time && s.days.some(d => days.includes(d)));
+        if (clash) return fail(`There is already a feeding at ${fmtTime(time)} on ${daysLabel(clash.days.filter(d => days.includes(d)))}.`);
+        if (id) Object.assign(state.feed.find(s => s.id === id), { time, kg, days, enabled });
+        else state.feed.push({ id: newId(), time, kg, days, enabled });
+        closeModal('feed-modal');
+        saveState();
+    }
+    function toggleFeedSchedule(id) {
+        const s = state.feed.find(x => x.id === id);
+        s.enabled = !s.enabled;
+        saveState();
+    }
+    function deleteFeedSchedule(id) {
+        const s = state.feed.find(x => x.id === id);
+        if (!confirm(`Delete the ${fmtTime(s.time)} feeding (${s.kg} kg)?`)) return;
+        state.feed = state.feed.filter(x => x.id !== id);
+        saveState();
+    }
+    function setAutoFeed(on) {
+        state.autoFeed = on;
+        saveState();
+    }
+
+    // ----- health schedule actions -----
+    function openHealthModal(type, id) {
+        const h = state.health.find(x => x.id === id);
+        const info = TYPE_INFO[type];
+        document.getElementById('health-modal-title').textContent = (h ? 'Edit ' : 'Add ') + info.noun + ' Schedule';
+        document.getElementById('hf-id').value = h ? h.id : '';
+        document.getElementById('hf-type').value = type;
+        document.getElementById('hf-name').value = h ? h.name : '';
+        document.getElementById('hf-date').value = h ? h.due.slice(0, 10) : '';
+        document.getElementById('hf-time').value = h ? h.due.slice(11, 16) : '07:00';
+        document.getElementById('hf-details').value = h ? h.details : '';
+        openModal('health-modal');
+        document.getElementById('hf-name').focus();
+    }
+    function saveHealthSchedule(e) {
+        e.preventDefault();
+        const id = document.getElementById('hf-id').value;
+        const data = {
+            type: document.getElementById('hf-type').value,
+            name: document.getElementById('hf-name').value.trim(),
+            due: document.getElementById('hf-date').value + 'T' + document.getElementById('hf-time').value,
+            details: document.getElementById('hf-details').value.trim()
+        };
+        if (!data.name) return;
+        if (id) Object.assign(state.health.find(h => h.id === id), data);
+        else state.health.push({ id: newId(), done: false, ...data });
+        closeModal('health-modal');
+        saveState();
+    }
+    function toggleHealthDone(id) {
+        const h = state.health.find(x => x.id === id);
+        h.done = !h.done;
+        saveState();
+    }
+    function deleteHealthSchedule(id) {
+        const h = state.health.find(x => x.id === id);
+        if (!confirm(`Delete "${h.name}"?`)) return;
+        state.health = state.health.filter(x => x.id !== id);
+        saveState();
+    }
+    // Re-check due states and next feeding every minute
+    setInterval(renderSchedules, 60000);
 
     // Clock
     function updateClock() {
@@ -621,8 +861,7 @@
     }
 
     updateFeedStatus();
-    updateDueDates();
-    lucide.createIcons();
+    renderSchedules();
 </script>
  
 </body></html>
